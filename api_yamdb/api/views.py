@@ -12,15 +12,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from reviews.models import Category, Genre, Review, Title
-from serializers import (CategorySerializer, CommentSerializer,
-                         GenreSerializer, ReviewSerializer, SignupSerializer,
-                         TitleListSerializer, TitleSerializer, TokenSerializer,
-                         UserSerializer)
-from utils import make_pin, send_pincode
 
 from .filters import TitleFilter
 from .permissions import (IsAdmin, IsAdminModeratorAuthorOrReadOnly,
                           IsAdminOrReadOnly)
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, ReviewSerializer, SignupSerializer,
+                          TitleListSerializer, TitleSerializer,
+                          TokenSerializer, UserSerializer)
+from .utils import make_pin, send_pincode
 
 User = get_user_model()
 
