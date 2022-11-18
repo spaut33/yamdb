@@ -1,12 +1,12 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
-from django.conf import settings
+from reviews.models import Category, Comment, Genre, Review, Title
 
 from .mixins import ValidateUsername
-from reviews.models import Category, Comment, Genre, Review, Title
 
 User = get_user_model()
 
