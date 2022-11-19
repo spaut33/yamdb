@@ -46,8 +46,8 @@
 Для запуска приложения должен быть установлен [git](https://git-scm.com/) и [docker](https://www.docker.com/).
 
 ```bash
-git clone git@github.com:spaut33/infra_sp2.git
-cd infra_sp2
+git clone git@github.com:spaut33/yamdb_final.git
+cd yamdb_final
 ```
 
 Шаблон для создания .env файла (содержит необходимые для работы перменные окружения). Данный файл должен находится в папке `infra` проекта:
@@ -63,6 +63,9 @@ DB_HOST=db
 DB_PORT=5432
 
 SECRET_KEY=django-secret-key
+
+ALLOWED_HOSTS="127.0.0.1"
+DEBUG=True
 ```
 
 Собрать и запустить контейнеры
@@ -74,9 +77,9 @@ sudo docker-compose up
 
 После запуска контейнеров необходимо применить миграции, создать суперпользователя и собрать статику:
 ```bash
-docker-compose exec web python3 manage.py migrate
-docker-compose exec web python3 manage.py createsuperuser
-docker-compose exec web python3 manage.py collectstatic --no-input
+sudo docker-compose exec web python3 manage.py migrate
+sudo docker-compose exec web python3 manage.py createsuperuser
+sudo docker-compose exec web python3 manage.py collectstatic --no-input
 ```
 
 ### Тесты
@@ -84,13 +87,13 @@ docker-compose exec web python3 manage.py collectstatic --no-input
 Для запуска тестов нужно перейти в директорию репозитория
 
 ```bash
-cd infra_sp2
+cd yamdb_final
 ```
 
 Cоздать и активировать виртуальное окружение:
 
 ```bash
-python3 -m venv env
+python3 -m venv .venv
 source env/bin/activate
 ```
 
@@ -103,8 +106,8 @@ pytest
 Для наполнения базы данных тестовыми данными можно использовать команду:
 
 ```bash
-docker-compose exec web python3 manage.py flush --no-input
-docker-compose exec web python3 manage.py loaddata fixtures.json
+sudo docker-compose exec web python3 manage.py flush --no-input
+sudo docker-compose exec web python3 manage.py loaddata fixtures.json
 ```
 
 ## ⚙️ Использованные технологии
