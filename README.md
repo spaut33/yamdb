@@ -36,10 +36,10 @@
 
 💁 Подробное интерактивное описание всех доступных методов API расположено по адресу:
 ```http
-  http://yacloud.telfia.com/swagger/
+  https://yacloud.telfia.com/swagger/
 ```
 ```http
-  http://yacloud.telfia.com/redoc/
+  https://yacloud.telfia.com/redoc/
 ```
 ## 🛠️ Установка и запуск
 
