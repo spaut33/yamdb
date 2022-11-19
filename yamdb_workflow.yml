@@ -5,13 +5,16 @@ on: [push]
 jobs:
   tests:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [ "3.7", "3.8", "3.9" ]
 
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.7
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: |
@@ -49,6 +52,7 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     needs: build_and_push_to_docker_hub
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
@@ -57,13 +61,12 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
+            sudo docker pull ${{ secrets.DOCKER_HUB_NAME }}/api_yamdb:latest
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
             echo "${{ secrets.ENV_FILE }}" > .env
             sudo docker-compose up -d
-            sudo docker-compose exec web python3 manage.py migrate
-            sudo docker-compose exec web python3 manage.py collectstatic --no-input
 
   send_message:
     runs-on: ubuntu-20.04
