@@ -9,7 +9,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY', default='django-secret-key')
 
-DEBUG = not os.getenv('DEBUG', default=True) == 'False'
+DEBUG = os.getenv('DEBUG', default=False) == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='127.0.0.1').split()
 
